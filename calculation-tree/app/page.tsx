@@ -5,9 +5,6 @@ import "./globals.css";
 import { Node, Operation } from "@/types";
 import { TreeNodeType } from "@/types";
 
-
-
-/* Utility: build the tree structure from flat node list */
 function buildTree(nodes: Node[]): TreeNodeType[] {
   const map = new Map<string, TreeNodeType>();
 
@@ -30,7 +27,6 @@ function buildTree(nodes: Node[]): TreeNodeType[] {
 }
 
 
-/* Component to render each node + its children recursively */
 function TreeNode({
   node,
   onReply,
@@ -219,21 +215,47 @@ export default function Page() {
 
         {/* Auth */}
         {!user && (
-          <div className="flex gap-4 justify-center mb-6">
-            <button
-              onClick={handleRegister}
-              className="px-4 py-2 bg-blue-600 text-white rounded-xl shadow hover:bg-blue-700"
-            >
-              Register
-            </button>
-            <button
-              onClick={handleLogin}
-              className="px-4 py-2 bg-green-600 text-white rounded-xl shadow hover:bg-green-700"
-            >
-              Login
-            </button>
+          <div className="bg-white p-5 rounded-xl shadow mb-6 max-w-md mx-auto space-y-3">
+            <h2 className="text-lg font-semibold text-center">Sign up / Log in</h2>
+
+            {authError && (
+              <p className="text-sm text-red-600 text-center">{authError}</p>
+            )}
+
+            <input
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full border border-gray-300 rounded-lg px-3 py-2"
+            />
+
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full border border-gray-300 rounded-lg px-3 py-2"
+            />
+
+            <div className="flex gap-4">
+              <button
+                onClick={handleRegister}
+                className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-xl shadow hover:bg-blue-700"
+              >
+                Register
+              </button>
+
+              <button
+                onClick={handleLogin}
+                className="flex-1 px-4 py-2 bg-green-600 text-white rounded-xl shadow hover:bg-green-700"
+              >
+                Login
+              </button>
+            </div>
           </div>
         )}
+
 
         {/* Add Root */}
         {user && (
